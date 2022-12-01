@@ -10,7 +10,7 @@ type Agent struct {
 const (
 	experienceRate = 0.2
 	learningRate   = 0.2
-	gamma          = 0.9
+	discountFactor = 0.9
 )
 
 func (a *Agent) ChooseAction(board Board) Action {
@@ -62,7 +62,7 @@ func (a *Agent) Reward(amount float64) {
 	for latest := len(a.States); latest > 0; latest-- {
 		boardHash := a.States[latest]
 		currentQValue := a.QTable.Get(boardHash)
-		newQValue := currentQValue + learningRate*(amount*gamma-currentQValue)
+		newQValue := currentQValue + learningRate*(amount*discountFactor-currentQValue)
 		a.QTable.Set(boardHash, newQValue)
 		amount = newQValue
 	}
