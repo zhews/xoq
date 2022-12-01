@@ -13,3 +13,19 @@ func (b *Board) Hash() string {
 	}
 	return hash.String()
 }
+
+func (b *Board) PossibleActions() []Action {
+	var actions []Action
+	for rowIndex, row := range b {
+		for columnIndex, column := range row {
+			if column == SymbolNone {
+				action := Action{
+					Row:    rowIndex,
+					Column: columnIndex,
+				}
+				actions = append(actions, action)
+			}
+		}
+	}
+	return actions
+}
