@@ -12,4 +12,4 @@ run:
 hooks:
 	cp githooks/* .git/hooks/
 
-.PHONY: build run hooks
+.PHONY: build docker run hooks
