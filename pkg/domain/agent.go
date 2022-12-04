@@ -59,7 +59,7 @@ func (a *Agent) updateStates(board Board, action Action) {
 }
 
 func (a *Agent) Reward(amount float64) {
-	for latest := len(a.States); latest > 0; latest-- {
+	for latest := len(a.States) - 1; latest > 0; latest-- {
 		boardHash := a.States[latest]
 		currentQValue := a.QTable.Get(boardHash)
 		newQValue := currentQValue + learningRate*(amount*discountFactor-currentQValue)
