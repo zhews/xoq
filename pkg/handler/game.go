@@ -2,7 +2,6 @@ package handler
 
 import (
 	"encoding/json"
-	"fmt"
 	"github.com/gofiber/websocket/v2"
 	"xoq/pkg/domain"
 )
@@ -51,7 +50,6 @@ func gameIsFinished(conn *websocket.Conn, board *domain.Board, agent domain.Agen
 			agent.Reward(0)
 		}
 		conn.WriteJSON(Response{Type: ResponseTypeWinner, Data: ResponseWinner{Symbol: winner}})
-		fmt.Println(agent.QTable)
 		return true
 	} else {
 		if board.IsDraw() {
