@@ -2,7 +2,20 @@ package domain
 
 import "strings"
 
-type Board [3][3]Symbol
+const (
+	height = 3
+	width  = 3
+)
+
+type Board [height][width]Symbol
+
+func NewEmptyBoard() *Board {
+	return &Board{
+		{SymbolNone, SymbolNone, SymbolNone},
+		{SymbolNone, SymbolNone, SymbolNone},
+		{SymbolNone, SymbolNone, SymbolNone},
+	}
+}
 
 func (b *Board) Hash() string {
 	var hash strings.Builder
