@@ -15,6 +15,7 @@ func (h *GameHandler) RunGame(conn *websocket.Conn) {
 	defer conn.Close()
 	agent := domain.Agent{QTable: h.QTable}
 	board := domain.NewEmptyBoard()
+	conn.WriteJSON(dto.Response{Type: dto.ResponseTypeBoard, Data: board})
 	for {
 		_, message, err := conn.ReadMessage()
 		if err != nil {
