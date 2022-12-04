@@ -18,3 +18,9 @@ func (qt *QTable) Get(key string) float64 {
 	defer qt.RUnlock()
 	return qt.qValues[key]
 }
+
+func NewQTable() *QTable {
+	return &QTable{
+		qValues: make(map[string]float64),
+	}
+}
