@@ -31,11 +31,13 @@ func (h *GameHandler) RunGame(conn *websocket.Conn) {
 		}
 		board[playerAction.Row][playerAction.Column] = domain.SymbolPlayer
 		if gameIsFinished(conn, board, agent) {
+			conn.WriteJSON(dto.Response{Type: dto.ResponseTypeBoard, Data: board})
 			break
 		}
 		agentAction := agent.ChooseAction(*board)
 		board[agentAction.Row][agentAction.Column] = domain.SymbolAgent
 		if gameIsFinished(conn, board, agent) {
+			conn.WriteJSON(dto.Response{Type: dto.ResponseTypeBoard, Data: board})
 			break
 		}
 		conn.WriteJSON(dto.Response{Type: dto.ResponseTypeBoard, Data: board})
