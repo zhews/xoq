@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"github.com/gofiber/websocket/v2"
 	"xoq/pkg/domain"
+	"xoq/pkg/handler/dto"
 )
 
 type GameHandler struct {
@@ -21,11 +22,11 @@ func (h *GameHandler) RunGame(conn *websocket.Conn) {
 		}
 		var playerAction domain.Action
 		if err = json.Unmarshal(message, &playerAction); err != nil {
-			conn.WriteJSON(Response{Type: ResponseTypeError, Data: ResponseMessage{Message: "Invalid message!"}})
+			conn.WriteJSON(dto.Response{Type: dto.ResponseTypeError, Data: dto.ResponseMessage{Message: "Invalid message!"}})
 			continue
 		}
 		if !board.IsValidAction(playerAction) {
-			conn.WriteJSON(Response{Type: ResponseTypeError, Data: ResponseMessage{Message: "Invalid action!"}})
+			conn.WriteJSON(dto.Response{Type: dto.ResponseTypeError, Data: dto.ResponseMessage{Message: "Invalid action!"}})
 			continue
 		}
 		board[playerAction.Row][playerAction.Column] = domain.SymbolPlayer
@@ -37,7 +38,7 @@ func (h *GameHandler) RunGame(conn *websocket.Conn) {
 		if gameIsFinished(conn, board, agent) {
 			break
 		}
-		conn.WriteJSON(Response{Type: ResponseTypeBoard, Data: board})
+		conn.WriteJSON(dto.Response{Type: dto.ResponseTypeBoard, Data: board})
 	}
 }
 
@@ -49,12 +50,12 @@ func gameIsFinished(conn *websocket.Conn, board *domain.Board, agent domain.Agen
 		} else {
 			agent.Reward(0)
 		}
-		conn.WriteJSON(Response{Type: ResponseTypeWinner, Data: ResponseWinner{Symbol: winner}})
+		conn.WriteJSON(dto.Response{Type: dto.ResponseTypeWinner, Data: dto.ResponseWinner{Symbol: winner}})
 		return true
 	} else {
 		if board.IsDraw() {
 			agent.Reward(0.3)
-			conn.WriteJSON(Response{Type: ResponseTypeDraw, Data: nil})
+			conn.WriteJSON(dto.Response{Type: dto.ResponseTypeDraw, Data: nil})
 			return true
 		}
 	}
