@@ -42,3 +42,41 @@ func (b *Board) PossibleActions() []Action {
 	}
 	return actions
 }
+
+func (b *Board) IsValidAction(action Action) bool {
+	validRow := action.Row >= 0 && action.Row < height
+	validColumn := action.Column >= 0 && action.Column < width
+	if validRow && validColumn {
+		return b[action.Row][action.Column] == SymbolNone
+	}
+	return false
+}
+
+func (b *Board) Winner() Symbol {
+	for index, row := range b {
+		if row[0] == row[1] && row[1] == row[2] {
+			return row[0]
+		}
+		if b[0][index] == b[1][index] && b[1][index] == b[2][index] {
+			return b[0][index]
+		}
+	}
+	if b[0][0] == b[1][1] && b[1][1] == b[2][2] {
+		return b[0][0]
+	}
+	if b[0][2] == b[1][1] && b[1][1] == b[2][0] {
+		return b[0][2]
+	}
+	return SymbolNone
+}
+
+func (b *Board) IsDraw() bool {
+	for _, row := range b {
+		for _, column := range row {
+			if column == SymbolNone {
+				return false
+			}
+		}
+	}
+	return true
+}
