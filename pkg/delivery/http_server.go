@@ -18,5 +18,9 @@ func RunHTTPServer() {
 		Statistic: statistic,
 	}
 	app.Get("/game", websocket.New(gameHandler.RunGame))
+	statisticHandler := handler.StatisticHandler{
+		Statistic: statistic,
+	}
+	app.Get("/statistic", statisticHandler.Current)
 	log.Fatal(app.Listen(":8080"))
 }
