@@ -8,12 +8,13 @@ import (
 )
 
 type GameHandler struct {
-	QTable *domain.QTable
+	QTable    *domain.QTable
+	Statistic *domain.Statistic
 }
 
-func (h *GameHandler) RunGame(conn *websocket.Conn) {
+func (gh *GameHandler) RunGame(conn *websocket.Conn) {
 	defer conn.Close()
-	agent := domain.Agent{QTable: h.QTable}
+	agent := domain.Agent{QTable: gh.QTable}
 	board := domain.NewEmptyBoard()
 	conn.WriteJSON(dto.Response{Type: dto.ResponseTypeBoard, Data: board})
 	for {
@@ -31,13 +32,13 @@ func (h *GameHandler) RunGame(conn *websocket.Conn) {
 			continue
 		}
 		board[playerAction.Row][playerAction.Column] = domain.SymbolPlayer
-		if gameIsFinished(conn, board, agent) {
+		if gh.gameIsFinished(conn, board, agent) {
 			conn.WriteJSON(dto.Response{Type: dto.ResponseTypeBoard, Data: board})
 			break
 		}
 		agentAction := agent.ChooseAction(*board)
 		board[agentAction.Row][agentAction.Column] = domain.SymbolAgent
-		if gameIsFinished(conn, board, agent) {
+		if gh.gameIsFinished(conn, board, agent) {
 			conn.WriteJSON(dto.Response{Type: dto.ResponseTypeBoard, Data: board})
 			break
 		}
@@ -45,19 +46,22 @@ func (h *GameHandler) RunGame(conn *websocket.Conn) {
 	}
 }
 
-func gameIsFinished(conn *websocket.Conn, board *domain.Board, agent domain.Agent) bool {
+func (gh *GameHandler) gameIsFinished(conn *websocket.Conn, board *domain.Board, agent domain.Agent) bool {
 	winner := board.Winner()
 	if winner != domain.SymbolNone {
 		if winner == domain.SymbolAgent {
 			agent.Reward(1)
+			gh.Statistic.Won()
 		} else {
 			agent.Reward(0)
+			gh.Statistic.Lost()
 		}
 		conn.WriteJSON(dto.Response{Type: dto.ResponseTypeWinner, Data: dto.ResponseWinner{Symbol: winner}})
 		return true
 	} else {
 		if board.IsDraw() {
 			agent.Reward(0.3)
+			gh.Statistic.Draw()
 			conn.WriteJSON(dto.Response{Type: dto.ResponseTypeDraw, Data: nil})
 			return true
 		}
