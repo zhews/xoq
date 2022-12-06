@@ -1,5 +1,20 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
+import {
+    Button,
+    Card,
+    CardBody,
+    CardFooter,
+    CardHeader,
+    Center,
+    Heading,
+    Spinner,
+    Stat,
+    StatLabel,
+    StatNumber,
+    Text
+} from "@chakra-ui/react";
+import { AiOutlineHome } from "react-icons/all";
 
 interface Statistic {
     total: number,
@@ -9,28 +24,49 @@ interface Statistic {
 }
 
 const Statistic = () => {
-    const [statistic, setStatistic] = useState<null | Statistic>();
-    fetch("http://localhost:8080/statistic")
-        .then(res => res.json())
-        .then(json => setStatistic(json))
-        .catch(err => console.error(err));
+    const [statistic, setStatistic] = useState<null | Statistic>(null);
+    useEffect(() => {
+        fetch("http://localhost:8080/statistic")
+            .then(res => res.json())
+            .then(json => setStatistic(json))
+            .catch(err => console.error(err));
+    });
     if (statistic) {
         return (
             <>
-                <p>Der Computer hat bis jetzt {statistic.total} Spiel(e) gespielt.</p>
-                <p>Davon hat er...</p>
-                <ul>
-                    <li>{statistic.win} gewonnen.</li>
-                    <li>{statistic.lose} verloren.</li>
-                    <li>{statistic.draw} unentschieden gespielt.</li>
-                </ul>
-                <Link to={"/"}>
-                    <button>Zur Startseite</button>
-                </Link>
+                <Card className={"card"}>
+                    <CardHeader>
+                        <Heading>Statistiken</Heading>
+                    </CardHeader>
+                    <CardBody>
+                        <Text pb={2}>Der Computer hat bis jetzt {statistic.total} {statistic.total === 1 ? "Runde" : "Runden"} gespielt.</Text>
+                        <Stat>
+                            <StatLabel>Gewonnene Runden</StatLabel>
+                            <StatNumber>{statistic.win}</StatNumber>
+                        </Stat>
+                        <Stat>
+                            <StatLabel>Verlorene Runden</StatLabel>
+                            <StatNumber>{statistic.lose}</StatNumber>
+                        </Stat>
+                        <Stat>
+                            <StatLabel>Unentschiedene Runden</StatLabel>
+                            <StatNumber>{statistic.draw}</StatNumber>
+                        </Stat>
+                    </CardBody>
+                    <CardFooter>
+                        <Link to={"/"}>
+                            <Button leftIcon={<AiOutlineHome/>}>Zur Startseite</Button>
+                        </Link>
+                    </CardFooter>
+                </Card>
             </>
         );
     } else {
-        return <p>Loading...</p>
+        return (
+            <Center width={"100vw"} height={"100vh"}>
+                <Spinner size={"xl"}/>
+            </Center>
+        );
     }
 }
 

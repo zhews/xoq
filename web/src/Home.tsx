@@ -1,20 +1,36 @@
 import {Link} from "react-router-dom";
+import {Button, Card, CardBody, CardFooter, CardHeader, Heading, Stack, Text} from "@chakra-ui/react";
+import {BiStats, BsPlay} from "react-icons/all";
 
 export const Home = () => {
     return (
         <>
-            <h1>xoq</h1>
-            <p>Für unsere Interdisziplinäre Projektarbeit mit dem Überthema "Künstliche Intelligenz (KI)" haben wir uns folgende Frage gestellt.</p>
-            <blockquote>Welche Macht kann eine KI durch verabeitete Daten aus dem Internet erlangen?</blockquote>
-            <p>Zum einschätzen dieser Aussage wurde dieses Tic-Tac-Toe Spiel entwickelt.</p>
-            <p>Es lernt durch die Spielzüge aller Spieler und verbessert sich fortlaufend.</p>
-            <p>Im Hintergrund verwendet es ein Q-Lernen Algorithmus.</p>
-            <Link to={"/game"}>
-                <button>Runde Starten</button>
-            </Link>
-            <Link to={"/statistic"}>
-                <button>Statistiken</button>
-            </Link>
+            <Card className={"card"}>
+                <CardHeader>
+                    <Heading>xoq</Heading>
+                </CardHeader>
+                <CardBody>
+                    <Stack>
+                        <Text>Für unsere Interdisziplinäre Projektarbeit mit dem Überthema "Künstliche Intelligenz (KI)"
+                            haben
+                            wir uns folgende Frage gestellt.</Text>
+                        <Text as={"cite"}>Welche Macht kann eine KI durch verabeitete Daten aus dem Internet
+                            erlangen?</Text>
+                        <Text>Zum einschätzen dieser Aussage wurde dieses Tic-Tac-Toe Spiel entwickelt.</Text>
+                        <Text>Es lernt durch die Spielzüge aller Spieler und verbessert sich fortlaufend.</Text>
+                        <Text>Im Hintergrund verwendet es ein Q-Lernen Algorithmus.</Text>
+
+                    </Stack>
+                </CardBody>
+                <CardFooter justify={"space-between"}>
+                    <Link to={"/game"}>
+                        <Button leftIcon={<BsPlay/>}>Runde Starten</Button>
+                    </Link>
+                    <Link to={"/statistic"}>
+                        <Button leftIcon={<BiStats/>}>Statistiken</Button>
+                    </Link>
+                </CardFooter>
+            </Card>
         </>
     );
 }
