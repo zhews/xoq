@@ -54,18 +54,24 @@ func (b *Board) IsValidAction(action Action) bool {
 
 func (b *Board) Winner() Symbol {
 	for index, row := range b {
-		if row[0] == row[1] && row[1] == row[2] {
+		if row[0] != SymbolNone && row[0] == row[1] && row[1] == row[2] {
 			return row[0]
 		}
-		if b[0][index] == b[1][index] && b[1][index] == b[2][index] {
-			return b[0][index]
+		if b[0][index] != SymbolNone && b[0][index] == b[1][index] && b[1][index] == b[2][index] {
+			if b[0][index] != SymbolNone {
+				return b[0][index]
+			}
 		}
 	}
 	if b[0][0] == b[1][1] && b[1][1] == b[2][2] {
-		return b[0][0]
+		if b[0][0] != SymbolNone {
+			return b[0][0]
+		}
 	}
 	if b[0][2] == b[1][1] && b[1][1] == b[2][0] {
-		return b[0][2]
+		if b[0][2] != SymbolNone {
+			return b[0][2]
+		}
 	}
 	return SymbolNone
 }
