@@ -5,23 +5,24 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/websocket/v2"
 	"log"
-	"xoq/pkg/domain"
 	"xoq/pkg/handler"
+	qTable "xoq/pkg/q_table/in_memory"
+	statistic "xoq/pkg/statistic/in_memory"
 )
 
 func RunHTTPServer() {
 	app := fiber.New()
 	app.Use(cors.New(cors.Config{AllowOrigins: "http://localhost:5173"}))
 	app.Use("/game", handler.UpgradeToWebsocket)
-	qTable := domain.NewQTable()
-	statistic := &domain.Statistic{}
+	inMemoryQTable := qTable.NewQTable()
+	inMemoryStatistic := &statistic.InMemoryStatistic{}
 	gameHandler := handler.GameHandler{
-		QTable:    qTable,
-		Statistic: statistic,
+		QTable:    inMemoryQTable,
+		Statistic: inMemoryStatistic,
 	}
 	app.Get("/game", websocket.New(gameHandler.RunGame))
 	statisticHandler := handler.StatisticHandler{
-		Statistic: statistic,
+		Statistic: inMemoryStatistic,
 	}
 	app.Get("/statistic", statisticHandler.Current)
 	log.Fatal(app.Listen(":8080"))

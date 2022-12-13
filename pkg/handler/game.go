@@ -8,8 +8,8 @@ import (
 )
 
 type GameHandler struct {
-	QTable    *domain.QTable
-	Statistic *domain.Statistic
+	QTable    domain.QTable
+	Statistic domain.Statistic
 }
 
 func (gh *GameHandler) RunGame(conn *websocket.Conn) {

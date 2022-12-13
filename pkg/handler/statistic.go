@@ -7,7 +7,7 @@ import (
 )
 
 type StatisticHandler struct {
-	Statistic *domain.Statistic
+	Statistic domain.Statistic
 }
 
 func (sh *StatisticHandler) Current(ctx *fiber.Ctx) error {

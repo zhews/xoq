@@ -3,7 +3,7 @@ package domain
 import "math/rand"
 
 type Agent struct {
-	QTable *QTable
+	QTable QTable
 	States []string
 }
 
