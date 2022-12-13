@@ -4,3 +4,21 @@ services:
     image: redis:7-alpine
     ports:
       - "6379:6379"
+  backend:
+    image: xoq-backend:latest
+    build:
+      context: ..
+      dockerfile: ./build/package/xoq/Dockerfile
+    ports:
+      - "8080:8080"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 128MB
+  frontend:
+    image: xoq-frontend:latest
+    build:
+      context: ../web
+    ports:
+      - "7070:80"
