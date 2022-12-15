@@ -74,7 +74,7 @@ func (sr *StatisticRedis) Get() (int, int, int, int) {
 		log.Println("Received an invalid wins value: ", err)
 		return 0, 0, 0, 0
 	}
-	drawsResult, err := sr.Client.Get(context.Background(), KeyLosses).Result()
+	drawsResult, err := sr.Client.Get(context.Background(), KeyDraws).Result()
 	if err != nil {
 		if !errors.Is(err, redis.Nil) {
 			log.Println("Could not get win result: ", err)
