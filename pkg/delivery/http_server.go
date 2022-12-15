@@ -1,35 +1,35 @@
 package delivery
 
 import (
-	"github.com/go-redis/redis/v9"
+	"fmt"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/websocket/v2"
 	"log"
+	"xoq/pkg/config"
 	"xoq/pkg/handler"
-	qTable "xoq/pkg/q_table/redis"
-	statistic "xoq/pkg/statistic/redis"
+	qTable "xoq/pkg/q_table/in_memory"
+	statistic "xoq/pkg/statistic/in_memory"
 )
 
 func RunHTTPServer() {
+	xoqConfig, err := config.ParseFromEnvironmentalVariables()
+	if err != nil {
+		log.Fatal(xoqConfig)
+	}
 	app := fiber.New()
-	app.Use(cors.New(cors.Config{AllowOrigins: "http://localhost:5173"}))
+	app.Use(cors.New(cors.Config{AllowOrigins: xoqConfig.CorsAllowOrigins}))
 	app.Use("/game", handler.UpgradeToWebsocket)
-	rdb := redis.NewClient(&redis.Options{
-		Addr:     "localhost:6379",
-		Password: "",
-		DB:       0,
-	})
-	redisQTable := &qTable.QTableRedis{Client: rdb}
-	redisStatistic := &statistic.StatisticRedis{Client: rdb}
+	inMemoryQTable := qTable.NewQTable()
+	inMemoryStatistic := &statistic.InMemoryStatistic{}
 	gameHandler := handler.GameHandler{
-		QTable:    redisQTable,
-		Statistic: redisStatistic,
+		QTable:    inMemoryQTable,
+		Statistic: inMemoryStatistic,
 	}
 	app.Get("/game", websocket.New(gameHandler.RunGame))
 	statisticHandler := handler.StatisticHandler{
-		Statistic: redisStatistic,
+		Statistic: inMemoryStatistic,
 	}
 	app.Get("/statistic", statisticHandler.Current)
-	log.Fatal(app.Listen(":8080"))
+	log.Fatal(app.Listen(fmt.Sprintf(":%d", xoqConfig.Port)))
 }
