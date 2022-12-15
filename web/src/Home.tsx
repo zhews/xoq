@@ -14,8 +14,7 @@ export const Home = () => {
                         <Text>Für unsere Interdisziplinäre Projektarbeit mit dem Überthema "Künstliche Intelligenz (KI)"
                             haben
                             wir uns folgende Frage gestellt.</Text>
-                        <Text as={"cite"}>Welche Macht kann eine KI durch verabeitete Daten aus dem Internet
-                            erlangen?</Text>
+                        <Text as={"cite"}>Zu welchem Zweck werden Daten im Internet gesammelt?</Text>
                         <Text>Zum einschätzen dieser Aussage wurde dieses Tic-Tac-Toe Spiel entwickelt.</Text>
                         <Text>Es lernt durch die Spielzüge aller Spieler und verbessert sich fortlaufend.</Text>
                         <Text>Im Hintergrund verwendet es ein Q-Lernen Algorithmus.</Text>
