@@ -8,7 +8,7 @@ services:
     image: xoq-backend:latest
     build:
       context: ..
-      dockerfile: ../build/package/Dockerfile
+      dockerfile: build/package/Dockerfile
     ports:
       - "8080:8080"
     deploy:
@@ -20,5 +20,8 @@ services:
     image: xoq-frontend:latest
     build:
       context: ../web
+    environment:
+      - PORT=7070
+      - HOST=localhost
     ports:
-      - "7070:80"
+      - "7070:7070"

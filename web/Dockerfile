@@ -5,5 +5,5 @@ COPY . .
 RUN pnpm install --frozen-lockfile
 RUN pnpm build
 FROM nginx:1.23-alpine AS serve
-COPY default.conf /etc/nginx/conf.d/default.conf
-COPY --from=build /build/dist/. /usr/share/nginx/html/
+COPY default.conf.template /etc/nginx/templates/default.conf.template
+COPY --from=build /build/dist /usr/share/nginx/html
