@@ -8,13 +8,13 @@ type Agent struct {
 }
 
 const (
-	experienceRate = 0.2
-	learningRate   = 0.2
-	discountFactor = 0.9
+	explorationRate = 0.2
+	learningRate    = 0.2
+	discountFactor  = 0.9
 )
 
 func (a *Agent) ChooseAction(board Board) Action {
-	if rand.Float64() < experienceRate {
+	if rand.Float64() < explorationRate {
 		nextAction := a.chooseRandomAction(board)
 		return nextAction
 	}
