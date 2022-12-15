@@ -23,7 +23,7 @@ export const Game = () => {
     const [lost, setLost] = useState<boolean>(false);
     const [draw, setDraw] = useState<boolean>(false);
 
-    const {sendJsonMessage} = useWebSocket(`ws://${import.meta.env.VITE_BACKEND_HOST}/game`, {
+    const {sendJsonMessage} = useWebSocket(`${import.meta.env.VITE_BACKEND_WEBSOCKET}/game`, {
         onMessage: (messageEvent) => {
             let message = JSON.parse(messageEvent.data)
             if (message.type === "board") {

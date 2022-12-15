@@ -26,7 +26,7 @@ interface Statistic {
 const Statistic = () => {
     const [statistic, setStatistic] = useState<null | Statistic>(null);
     useEffect(() => {
-        fetch(`http://${import.meta.env.VITE_BACKEND_HOST}/statistic`)
+        fetch(`${import.meta.env.VITE_BACKEND}/statistic`)
             .then(res => res.json())
             .then(json => setStatistic(json))
             .catch(err => console.error(err));
