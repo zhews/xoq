@@ -14,7 +14,7 @@ import {
     StatNumber,
     Text
 } from "@chakra-ui/react";
-import { AiOutlineHome } from "react-icons/all";
+import {AiOutlineHome} from "react-icons/all";
 
 interface Statistic {
     total: number,
@@ -26,11 +26,11 @@ interface Statistic {
 const Statistic = () => {
     const [statistic, setStatistic] = useState<null | Statistic>(null);
     useEffect(() => {
-        fetch("http://localhost:8080/statistic")
+        fetch(`http://${import.meta.env.VITE_BACKEND_HOST}/statistic`)
             .then(res => res.json())
             .then(json => setStatistic(json))
             .catch(err => console.error(err));
-    });
+    }, []);
     if (statistic) {
         return (
             <>
@@ -39,7 +39,8 @@ const Statistic = () => {
                         <Heading>Statistiken</Heading>
                     </CardHeader>
                     <CardBody>
-                        <Text pb={2}>Der Computer hat bis jetzt {statistic.total} {statistic.total === 1 ? "Runde" : "Runden"} gespielt.</Text>
+                        <Text pb={2}>Der Computer hat bis
+                            jetzt {statistic.total} {statistic.total === 1 ? "Runde" : "Runden"} gespielt.</Text>
                         <Stat>
                             <StatLabel>Gewonnene Runden</StatLabel>
                             <StatNumber>{statistic.win}</StatNumber>
