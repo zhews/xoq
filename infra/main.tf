@@ -9,6 +9,33 @@ resource "google_cloud_run_v2_service" "backend" {
         name  = var.backend_cors_allow_origins_env_name
         value = var.backend_cors_allow_origins_env_value
       }
+      env {
+        name = var.backend_redis_host_env_name
+        value_source {
+          secret_key_ref {
+            secret  = var.secret_id_redis_host
+            version = "1"
+          }
+        }
+      }
+      env {
+        name = var.backend_redis_user_env_name
+        value_source {
+          secret_key_ref {
+            secret  = var.secret_id_redis_user
+            version = "1"
+          }
+        }
+      }
+      env {
+        name = var.backend_redis_password_env_name
+        value_source {
+          secret_key_ref {
+            secret  = var.secret_id_redis_password
+            version = "1"
+          }
+        }
+      }
       resources {
         limits   = var.backend_resource_limits
         cpu_idle = var.backend_cpu_idle

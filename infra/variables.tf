@@ -98,6 +98,36 @@ variable "backend_cors_allow_origins_env_value" {
   default = "https://xoq-idpa.com"
 }
 
+variable "secret_id_redis_host" {
+  type    = string
+  default = "projects/890972837267/secrets/xoq-redis-host"
+}
+
+variable "backend_redis_host_env_name" {
+  type    = string
+  default = "REDIS_HOST"
+}
+
+variable "secret_id_redis_user" {
+  type    = string
+  default = "projects/890972837267/secrets/xoq-redis-user"
+}
+
+variable "backend_redis_user_env_name" {
+  type    = string
+  default = "REDIS_USER"
+}
+
+variable "secret_id_redis_password" {
+  type    = string
+  default = "projects/890972837267/secrets/xoq-redis-password"
+}
+
+variable "backend_redis_password_env_name" {
+  type    = string
+  default = "REDIS_PASSWORD"
+}
+
 variable "frontend_name" {
   type    = string
   default = "frontend"
