@@ -113,7 +113,7 @@ export const Game = () => {
         )
     } else {
         return (
-            <Center width={"100vw"} height={"100vh"}>
+            <Center width={"100vw"} height={"100svh"}>
                 <Spinner size={"xl"}/>
             </Center>
         )
