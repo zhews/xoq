@@ -12,11 +12,13 @@ import {
     Spinner
 } from "@chakra-ui/react";
 import {useState} from "react";
+import {useTranslation} from "react-i18next";
 import {AiOutlineHome, VscDebugRestart} from "react-icons/all";
 import {Link} from "react-router-dom";
 import useWebSocket from "react-use-websocket";
 
 export const Game = () => {
+    const {t} = useTranslation();
     const [board, setBoard] = useState<null | Array<Array<number>>>();
     const [done, setDone] = useState<boolean>(false);
     const [won, setWon] = useState<boolean>(false);
@@ -58,7 +60,7 @@ export const Game = () => {
             <>
                 <Card className={"card"}>
                     <CardHeader>
-                        <Heading>Spiel</Heading>
+                        <Heading>{t("title.game")}</Heading>
                     </CardHeader>
                     <CardBody>
                         <Center mb={5}>
@@ -94,16 +96,16 @@ export const Game = () => {
                                 }
                             </SimpleGrid>
                         </Center>
-                        {done && won && <Alert status={"success"}><AlertIcon/> Du hast gewonnen!</Alert>}
-                        {done && lost && <Alert status={"error"}><AlertIcon/> Du hast leider verloren!</Alert>}
-                        {done && draw && <Alert status={"info"}><AlertIcon/> Unentschieden!</Alert>}
+                        {done && won && <Alert status={"success"}><AlertIcon/>{t("game.won")}</Alert>}
+                        {done && lost && <Alert status={"error"}><AlertIcon/>{t("game.lost")}</Alert>}
+                        {done && draw && <Alert status={"info"}><AlertIcon/>{t("game.draw")}</Alert>}
                     </CardBody>
                     <CardFooter justify={"space-between"}>
                         <Link to={"/"}>
-                            <Button leftIcon={<AiOutlineHome/>}>Zur Startseite</Button>
+                            <Button leftIcon={<AiOutlineHome/>}>{t("button.toHome")}</Button>
                         </Link>
                         <Link to={"/game"} reloadDocument>
-                            <Button leftIcon={<VscDebugRestart/>}>Neustart</Button>
+                            <Button leftIcon={<VscDebugRestart/>}>{t("button.restart")}</Button>
                         </Link>
                     </CardFooter>
                 </Card>

@@ -1,8 +1,10 @@
-import {Link} from "react-router-dom";
 import {Button, Card, CardBody, CardFooter, CardHeader, Heading, Stack, Text} from "@chakra-ui/react";
+import {useTranslation} from "react-i18next";
 import {BiStats, BsPlay} from "react-icons/all";
+import {Link} from "react-router-dom";
 
 export const Home = () => {
+    const {t} = useTranslation();
     return (
         <>
             <Card className={"card"}>
@@ -11,22 +13,20 @@ export const Home = () => {
                 </CardHeader>
                 <CardBody>
                     <Stack>
-                        <Text>Für unsere Interdisziplinäre Projektarbeit mit dem Überthema "Künstliche Intelligenz (KI)"
-                            haben
-                            wir uns folgende Frage gestellt.</Text>
-                        <Text as={"cite"}>Zu welchem Zweck werden Daten im Internet gesammelt?</Text>
-                        <Text>Zum einschätzen dieser Aussage wurde dieses Tic-Tac-Toe Spiel entwickelt.</Text>
-                        <Text>Es lernt durch die Spielzüge aller Spieler und verbessert sich fortlaufend.</Text>
-                        <Text>Im Hintergrund verwendet es ein Q-Lernen Algorithmus.</Text>
+                        <Text>{t("home.introduction")}</Text>
+                        <Text as={"cite"}>{t("home.question")}</Text>
+                        <Text>{t("home.reason")}</Text>
+                        <Text>{t("home.how")}</Text>
+                        <Text>{t("home.details")}</Text>
 
                     </Stack>
                 </CardBody>
                 <CardFooter justify={"space-between"}>
                     <Link to={"/game"}>
-                        <Button leftIcon={<BsPlay/>}>Runde Starten</Button>
+                        <Button leftIcon={<BsPlay/>}>{t("button.start")}</Button>
                     </Link>
                     <Link to={"/statistic"}>
-                        <Button leftIcon={<BiStats/>}>Statistiken</Button>
+                        <Button leftIcon={<BiStats/>}>{t("button.statistic")}</Button>
                     </Link>
                 </CardFooter>
             </Card>

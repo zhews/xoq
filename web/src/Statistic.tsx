@@ -1,5 +1,3 @@
-import {useEffect, useState} from "react";
-import {Link} from "react-router-dom";
 import {
     Button,
     Card,
@@ -14,7 +12,10 @@ import {
     StatNumber,
     Text
 } from "@chakra-ui/react";
+import {useEffect, useState} from "react";
+import {useTranslation} from "react-i18next";
 import {AiOutlineHome} from "react-icons/all";
+import {Link} from "react-router-dom";
 
 interface Statistic {
     total: number,
@@ -24,6 +25,7 @@ interface Statistic {
 }
 
 const Statistic = () => {
+    const {t} = useTranslation();
     const [statistic, setStatistic] = useState<null | Statistic>(null);
     useEffect(() => {
         fetch(`${import.meta.env.VITE_BACKEND}/statistic`)
@@ -36,27 +38,29 @@ const Statistic = () => {
             <>
                 <Card className={"card"}>
                     <CardHeader>
-                        <Heading>Statistiken</Heading>
+                        <Heading>{t("title.statistic")}</Heading>
                     </CardHeader>
                     <CardBody>
-                        <Text pb={2}>Der Computer hat bis
-                            jetzt {statistic.total} {statistic.total === 1 ? "Runde" : "Runden"} gespielt.</Text>
+                        <Text pb={2}>{t("statistic.introduction", {
+                            rounds: statistic.total,
+                            roundWord: statistic.total === 1 ? "Runde" : "Runden"
+                        })}</Text>
                         <Stat>
-                            <StatLabel>Gewonnene Runden</StatLabel>
+                            <StatLabel>{t("statistic.roundsWon")}</StatLabel>
                             <StatNumber>{statistic.win}</StatNumber>
                         </Stat>
                         <Stat>
-                            <StatLabel>Verlorene Runden</StatLabel>
+                            <StatLabel>{t("statistic.roundsLost")}</StatLabel>
                             <StatNumber>{statistic.lose}</StatNumber>
                         </Stat>
                         <Stat>
-                            <StatLabel>Unentschiedene Runden</StatLabel>
+                            <StatLabel>{t("statistic.roundsDraw")}</StatLabel>
                             <StatNumber>{statistic.draw}</StatNumber>
                         </Stat>
                     </CardBody>
                     <CardFooter>
                         <Link to={"/"}>
-                            <Button leftIcon={<AiOutlineHome/>}>Zur Startseite</Button>
+                            <Button leftIcon={<AiOutlineHome/>}>{t("button.toHome")}</Button>
                         </Link>
                     </CardFooter>
                 </Card>
@@ -64,7 +68,7 @@ const Statistic = () => {
         );
     } else {
         return (
-            <Center width={"100vw"} height={"100vh"}>
+            <Center width={"100vw"} height={"100svh"}>
                 <Spinner size={"xl"}/>
             </Center>
         );

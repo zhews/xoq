@@ -1,0 +1,22 @@
+{
+  "button.start": "Start Round",
+  "button.statistic": "Statistics",
+  "button.toHome": "To Homepage",
+  "button.restart": "Restart",
+  "title.statistic": "Statistics",
+  "title.game": "Game",
+  "title.notFound": "404 Not Found",
+  "home.introduction": "For our interdisciplinary project work with the main topic \"Artificial Intelligence (AI)\" we asked ourselves the following question.",
+  "home.question": "For what purpose is data collected on the Internet?",
+  "home.reason": "This Tic-Tac-Toe game was developed to assess this statement.",
+  "home.how": "It learns from each player's moves and continually improves.",
+  "home.details": "In the background it uses a Q-Learning algorithm.",
+  "game.won": "You won!",
+  "game.lost": "Sadly you lost!",
+  "game.draw": "It's a draw!",
+  "statistic.introduction": "The computer has played {{rounds}} {{roundWord}} so far.",
+  "statistic.roundsWon": "Rounds won",
+  "statistic.roundsLost": "Rounds lost",
+  "statistic.roundsDraw": "Rounds drawn",
+  "notFound.explanation": "Ops, we probably made a mistake here!"
+}

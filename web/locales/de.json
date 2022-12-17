@@ -1,0 +1,22 @@
+{
+  "button.start": "Runde Starten",
+  "button.statistic": "Statistiken",
+  "button.toHome": "Zur Startseite",
+  "button.restart": "Neustart",
+  "title.statistic": "Statistiken",
+  "title.game": "Spiel",
+  "title.notFound": "404 Nicht Gefunden",
+  "home.introduction": "Für unsere Interdisziplinäre Projektarbeit mit dem Oberthema \"Künstliche Intelligenz (KI)\" haben wir uns folgende Frage gestellt.",
+  "home.question": "Zu welchem Zweck werden Daten im Internet gesammelt?",
+  "home.reason": "Zum einschätzen dieser Aussage wurde dieses Tic-Tac-Toe Spiel entwickelt.",
+  "home.how": "Es lernt durch die Spielzüge aller Spieler und verbessert sich fortlaufend.",
+  "home.details": "Im Hintergrund verwendet es ein Q-Lernen Algorithmus.",
+  "game.won": "Du hast gewonnen!",
+  "game.lost": "Du hast leider verloren!",
+  "game.draw": "Unentschieden!",
+  "statistic.introduction": "Der Computer hat bis jetzt {{rounds}} {{roundWord}} gespielt.",
+  "statistic.roundsWon": "Gewonnene Runden",
+  "statistic.roundsLost": "Verlorene Runden",
+  "statistic.roundsDraw": "Unentschiedene Runden",
+  "notFound.explanation": "Ups, Da ist uns wohl ein Fehler unterlaufen!"
+}
