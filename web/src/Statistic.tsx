@@ -43,7 +43,7 @@ const Statistic = () => {
                     <CardBody>
                         <Text pb={2}>{t("statistic.introduction", {
                             rounds: statistic.total,
-                            roundWord: statistic.total === 1 ? "Runde" : "Runden"
+                            roundWord: statistic.total === 1 ? t("statistic.round") : t("statistic.rounds")
                         })}</Text>
                         <Stat>
                             <StatLabel>{t("statistic.roundsWon")}</StatLabel>

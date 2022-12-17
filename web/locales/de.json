@@ -14,6 +14,8 @@
   "game.won": "Du hast gewonnen!",
   "game.lost": "Du hast leider verloren!",
   "game.draw": "Unentschieden!",
+  "statistic.round": "Runde",
+  "statistic.rounds": "Runden",
   "statistic.introduction": "Der Computer hat bis jetzt {{rounds}} {{roundWord}} gespielt.",
   "statistic.roundsWon": "Gewonnene Runden",
   "statistic.roundsLost": "Verlorene Runden",
