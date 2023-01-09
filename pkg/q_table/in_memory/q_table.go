@@ -23,12 +23,12 @@ func (qt *InMemoryQTable) Get(key string) float64 {
 	return qt.qValues[key]
 }
 
-func (qt *InMemoryQTable) WriteToDisk() {
+func (qt *InMemoryQTable) WriteToDisk(filename string) {
 	qValues, err := json.Marshal(qt.qValues)
 	if err != nil {
 		panic(err)
 	}
-	err = os.WriteFile("policy.json", qValues, 0755)
+	err = os.WriteFile(filename, qValues, 0755)
 	if err != nil {
 		panic(err)
 	}
