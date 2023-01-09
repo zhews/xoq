@@ -41,7 +41,6 @@ func main() {
 	})
 	for key, value := range policy {
 		status := redisClient.Set(context.Background(), key, value, 0)
-		log.Println(status.Result())
 		if status.Err() != nil {
 			log.Fatalln("Could not set key", key, "with value", value, "because of an error.", err)
 		}
